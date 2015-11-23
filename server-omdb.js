@@ -4,7 +4,7 @@ fs          = require('fs'),
 omdb        = require('omdb'),
 path        = "",
 Trakt       = require('trakt-api'),
-trakt       = Trakt("7e1b77ccdc43f9a36c195deefd7c7c67f205f2802b3ee503efbe41db3d73a448");
+trakt       = Trakt("");
 
 
 app.get('/', function (req, res) {
@@ -14,7 +14,7 @@ app.get('/', function (req, res) {
 app.get('/scan', function(req, res) {
     path = req.param.path;
 
-    fs.readdir(__dirname+"/Star Wars/", function(err, files) {
+    fs.readdir(__dirname+"/movies/", function(err, files) {
         files.forEach(function(file) {
             name = file.split(".");
             name.pop();

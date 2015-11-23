@@ -3,6 +3,7 @@ app         = express(),
 fs          = require('fs'),
 omdb        = require('omdb'),
 path        = "",
+html        = "",
 Trakt       = require('trakt-api'),
 trakt       = Trakt("");
 
@@ -12,9 +13,11 @@ app.get('/', function (req, res) {
 });
 
 app.get('/scan', function(req, res) {
-    path = req.param.path;
+    path = req.query.path;
 
-    fs.readdir(__dirname+"/movies/", function(err, files) {
+    console.log(path);
+
+    fs.readdir(path, function(err, files) {
         files.forEach(function(file) {
             name = file.split(".");
             name.pop();
@@ -28,6 +31,7 @@ app.get('/scan', function(req, res) {
                     if(!movie) return console.log('Movie not found!');
 
                     tomato = (typeof movie.tomato === 'undefined' ? 'null' : movie.tomato.rating);
+                    html += "<p>Title: "+movie.title+"</p><p>IMDB Rating: "+movie.imdb.rating+"</p><p>Tomatoes rating: "+tomato+"</p><hr>";
                     console.log('Title: '+movie.title);
                     console.log('IMDB rating: '+movie.imdb.rating);
                     console.log('Tomatoes rating: '+tomato);
@@ -35,7 +39,10 @@ app.get('/scan', function(req, res) {
                 });
             });
         });
+        res.send(html);
+        html = "";
     });
+
 
 });
 

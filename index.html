@@ -1,9 +1,23 @@
 <html>
 <head>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 </head>
 
 <body>
-    <input type="text"
-</body>
+    <form>
+        <input type="text" id="path" name="path">
+        <input type="submit" id="submit" value="Send">
+    </form>
 
+    <div id="result"></div>
+
+    <script>
+        $('#submit').click(function(e) {
+            e.preventDefault();
+            $.get( "/scan", { "path": $("#path").val() }, function( data ) {
+              $( "#result" ).html(data);
+            });
+        })
+    </script>
+</body>
 </html>

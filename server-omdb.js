@@ -5,7 +5,7 @@ omdb        = require('omdb'),
 path        = (if typeof process.argv[2] !== undefined ? process.argv[2] : ""),
 html        = "",
 Trakt       = require('trakt-api'),
-trakt       = Trakt("");
+trakt       = Trakt("1b760a511b5e173f51878ec13ff3ebbc80267502d7d1a541618bde514e81da21");
 
 if(path == "") {
     app.get('/', function (req, res) {

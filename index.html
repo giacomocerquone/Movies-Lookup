@@ -6,14 +6,13 @@
 <body>
     <form>
         <input type="text" id="path" name="path">
-        <input type="submit" id="submit" value="Send">
+        <input type="button" id="submit" value="Send">
     </form>
 
     <div id="result"></div>
 
     <script>
-        $('#submit').click(function(e) {
-            e.preventDefault();
+        $('#submit').click(function() {
             $.get( "/scan", { "path": $("#path").val() }, function( data ) {
               $( "#result" ).html(data);
             });

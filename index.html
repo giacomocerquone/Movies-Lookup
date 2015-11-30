@@ -1,6 +1,32 @@
 <html>
 <head>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <style>
+        body {
+            margin:1em;
+            padding:0;
+            font-family: 'Arial', sans-serif;
+            font-size:18px;
+            text-align:center;
+        }
+        a {
+            text-decoration: none;
+        }
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            text-align: center;
+            width:60%;
+        }
+        td {
+            width:10%;
+        }
+
+        thead td {
+            font-weight: 600;
+            padding:2em;
+        }
+    </style>
 </head>
 
 <body>
@@ -9,7 +35,20 @@
         <input type="button" id="submit" value="Send">
     </form>
 
-    <div id="result"></div>
+    <table style="margin:auto;">
+        <thead>
+            <tr>
+                <td>Title</td>
+                <td>IMDB</td>
+                <td>Rotten Tomatoes</td>
+                <td>Trailer</td>
+            </tr>
+        </thead>
+
+        <tbody id="result">
+            
+        </tbody>
+    </table>
 
     <script>
         $('#submit').click(function() {

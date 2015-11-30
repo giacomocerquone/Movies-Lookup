@@ -2,12 +2,11 @@ var express = require('express'),
 app         = express(),
 fs          = require('fs'),
 omdb        = require('omdb'),
-path        = (typeof process.argv[2] !== 'undefined' ? process.argv[2] : ""),
 Trakt       = require('trakt-api'),
 trakt       = Trakt("1b760a511b5e173f51878ec13ff3ebbc80267502d7d1a541618bde514e81da21"),
 ratings     = [];
 
-var getRatings = function(path, cb) {
+var getData = function(path, cb) {
     fs.readdir(path, function(err, files) {
         // Delete from the array every file that isn't a movie and trim the extension of the movies' filenames
         for(var i = files.length-1;i >= 0;i--) {
@@ -24,14 +23,13 @@ var getRatings = function(path, cb) {
             trakt.searchMovie(file, function(err, item) {
                 if(err) console.warn('Errors with trakt.', err);
                 else if(item.length == 0) console.log(file+' not found on Trakt'); 
-                else {
+                else {                    
                     omdb.get(item[0].movie.ids.imdb, {tomatoes: true}, function(err, movie) {
                         if(err) console.warn('Errors with imdb.', err);
                         else if(!movie) console.log(file+' not found on IMDB');
                         else {
                             tomato = (typeof movie.tomato === 'undefined' ? 'null' : movie.tomato.rating);
-                            ratings.push({"title": movie.title, "imdb": movie.imdb.rating, "tomato": tomato});
-                            
+                            ratings.push({"title": movie.title, "imdbI": item[0].movie.ids.imdb, "imdbR": movie.imdb.rating, "tomatoR": tomato, "trailer": "https://www.youtube.com/results?search_query="+movie.title+" trailer"});
                         }
                         if(index == files.length-1) {
                             cb(ratings);
@@ -44,35 +42,24 @@ var getRatings = function(path, cb) {
     });
 };
 
-if(path == "") {
+app.get('/', function (req, res) {
+    res.sendFile(__dirname+'/index.html');
+});
 
-    app.get('/', function (req, res) {
-        res.sendFile(__dirname+'/index.html');
-    });
-    
-    app.get('/scan', function(req, res) {
-        getRatings(req.query.path, function(ratings) {
-            var html = "";
-            ratings.forEach(function(file, index) {
-                if(parseFloat(file.imdb) <= 7.0 || parseFloat(file.tomato) <= 7.0) 
-                    red = "style='color:red;'";
-                else
-                    red = ""; 
+app.get('/scan', function(req, res) {
+    getData(req.query.path, function(ratings) {
+        var html = "";
+        ratings.forEach(function(file, index) {
+            red = {"imdb": "", "tomato": ""};
+            red.imdb = (parseFloat(file.imdbR) <= 7.0) ? "style='color:red;'" : "";
+            red.tomato = (parseFloat(file.tomatoR) <= 7.0) ? "style='color:red;'" : "";
 
-                html += "<p>Title: "+file.title+"</p><p "+red+">IMDB Rating: "+file.imdb+"</p><p "+red+">Tomatoes rating: "+file.tomato+"</p><hr>";
-                if(index == ratings.length-1) res.send(html);
-            });
+            html += "<tr><td>"+file.title+"</td><td><a target='_blank' "+red.imdb+" href='http://imdb.com/title/"+file.imdbI+"'>"+file.imdbR+"</a></td><td "+red.tomato+">"+file.tomatoR+"</td><td><a target='_blank' href='"+file.trailer+"'>Trailer</a></td></tr>";
+            if(index == ratings.length-1) res.send(html);
         });
     });
-    
-    var server = app.listen(8080, function() {
-        console.log("Listening on 8080");
-    });
-    
-} else {
+});
 
-    getRatings(path, function(ratings){ 
-        console.log(ratings);
-    });
-    console.log("choose the console version");
-}
+var server = app.listen(8080, function() {
+    console.log("Listening on 8080");
+});

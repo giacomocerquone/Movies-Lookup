@@ -14,13 +14,10 @@ var getData = function(path, cb) {
             ext = name.pop();
             if(ext != "mkv" && ext != "avi" && ext != "mp4" && ext != "mkv") {
                 files.splice(i, 1);
-                console.log("diverso");
             } else {
                 files[i] = name.join();
             }
         }
-
-        console.log(files)
 
         files.forEach(function(file, index) {
             trakt.searchMovie(file, function(err, item) {

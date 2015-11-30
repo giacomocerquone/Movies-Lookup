@@ -25,7 +25,6 @@ var getData = function(path, cb) {
                 else if(item.length == 0) console.log(file+' not found on Trakt'); 
                 else {                    
                     omdb.get(item[0].movie.ids.imdb, {tomatoes: true}, function(err, movie) {
-                        console.log(index)
                         if(err) console.warn('Errors with imdb.', err);
                         else if(!movie) console.log(file+' not found on IMDB');
                         else {

@@ -25,6 +25,7 @@ var getData = function(path, cb) {
                 else if(item.length == 0) console.log(file+' not found on Trakt'); 
                 else {                    
                     omdb.get(item[0].movie.ids.imdb, {tomatoes: true}, function(err, movie) {
+                        console.log(index)
                         if(err) console.warn('Errors with imdb.', err);
                         else if(!movie) console.log(file+' not found on IMDB');
                         else {
@@ -33,13 +34,13 @@ var getData = function(path, cb) {
                         }
                         if(index == files.length-1) {
                             cb(ratings);
-                            ratings = [];
                         } 
                     });
                 }
             });
         });
     });
+    ratings = [];
 };
 
 app.get('/', function (req, res) {
@@ -54,8 +55,11 @@ app.get('/scan', function(req, res) {
             red.imdb = (parseFloat(file.imdbR) <= 7.0) ? "style='color:red;'" : "";
             red.tomato = (parseFloat(file.tomatoR) <= 7.0) ? "style='color:red;'" : "";
 
+
             html += "<tr><td>"+file.title+"</td><td><a target='_blank' "+red.imdb+" href='http://imdb.com/title/"+file.imdbI+"'>"+file.imdbR+"</a></td><td "+red.tomato+">"+file.tomatoR+"</td><td><a target='_blank' href='"+file.trailer+"'>Trailer</a></td></tr>";
-            if(index == ratings.length-1) res.send(html);
+            if(index == ratings.length-1) {
+                res.send(html);
+            }
         });
     });
 });

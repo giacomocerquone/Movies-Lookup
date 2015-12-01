@@ -1,5 +1,6 @@
 # Movies-Lookup
-Movies-Lookup is a little Node app to lookup ratings of many movies all together on IMDB and Rotten Tomatoes. This thing here was developed mainly in 50 minutes to help me to get rid of the useless movies that I have on my NAS.
+Movies-Lookup is a little Node app to lookup ratings of many movies all together on IMDB and Rotten Tomatoes. This thing here was developed mainly in 50 minutes to help me to get rid of the useless movies that I had on my NAS.
+![Movies-Lookup-Screenshot](http://blog.giacomocerquone.com/wp-content/uploads/2015/12/Movies-Lookup-screenshot.jpg?4560df)
 
 ## Warning
 As it is right now, this app is quite useless and not very suitable for users who doesn't know node, so for the moment it is targeted at developers who wants to take a look to the code. This because I created it right for my needs. 

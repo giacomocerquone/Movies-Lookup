@@ -28,7 +28,7 @@ var getData = function(path, cb) {
                         if(err) console.warn('Errors with imdb.', err);
                         else if(!movie) console.log(file+' not found on IMDB');
                         else {
-                            tomato = (typeof movie.tomato === 'undefined' ? 'null' : movie.tomato.rating);
+                            tomato = (typeof movie.tomato === 'undefined' ? 'Not Available' : movie.tomato.rating);
                             ratings.push({"title": movie.title, "imdbI": item[0].movie.ids.imdb, "imdbR": movie.imdb.rating, "tomatoR": tomato, "trailer": "https://www.youtube.com/results?search_query="+movie.title+" trailer"});
                         }
                         if(index == files.length-1) {

@@ -1,5 +1,5 @@
 # Movies-Lookup
-![Blog Post](http://blog.giacomocerquone.com/movies-lookup-how-to-delete-600-movies-istantly/)
+[Blog Post](http://blog.giacomocerquone.com/movies-lookup-how-to-delete-600-movies-istantly/)
 Movies-Lookup is a little Node app to lookup ratings of many movies all together on IMDB and Rotten Tomatoes. This thing here was developed mainly in 50 minutes to help me to get rid of the useless movies that I had on my NAS.
 ![Movies-Lookup-Screenshot](http://blog.giacomocerquone.com/wp-content/uploads/2015/12/Movies-Lookup-screenshot.jpg?4560df)
 

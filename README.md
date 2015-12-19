@@ -7,9 +7,9 @@ Movies-Lookup is a little Node app to lookup ratings of many movies all together
 As it is right now, this app is quite useless and not very suitable for users who doesn't know node, so for the moment it is targeted at developers who wants to take a look to the code. This because I created it right for my needs.
 
 ## Installation
-1a. `npm install -g movies-lookup`
-Or
-1b. Download the repo and install through `npm install`
+Give `npm install -g movies-lookup` into your project<br/>
+Or<br/>
+Download this repo and give `npm install`<br/>
 
 ## Usage
 1. From terminal type `movies-lookup`

@@ -36,7 +36,7 @@
 <body>
     <form>
         <input type="text" id="path" name="path">
-        <input type="button" id="submit" value="Send">
+        <input type="submit" id="submit" value="Send">
     </form>
 
     <table style="margin:auto;">
@@ -50,12 +50,13 @@
         </thead>
 
         <tbody id="result">
-            
+
         </tbody>
     </table>
 
     <script>
-        $('#submit').click(function() {
+        $('#submit').click(function(e) {
+          e.preventDefault();
             $.get( "/scan", { "path": $("#path").val() }, function( data ) {
               $( "#result" ).html(data);
             });

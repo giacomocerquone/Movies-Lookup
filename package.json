@@ -1,6 +1,6 @@
 {
   "name": "movies-lookup",
-  "version": "0.2.0",
+  "version": "0.2.5",
   "description": "Node app to lookup ratings of many movies all together on imdb and Rotten Tomatoes",
   "keywords": [
     "movies",

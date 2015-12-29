@@ -27,8 +27,10 @@ var getData = function(path, cb) {
           files.forEach(function(file, index) {
               trakt.searchMovie(file, function(err, item) {
                   if(err) console.warn('Errors with trakt.', err);
-                  else if(item.length == 0) console.log(file+' not found on Trakt');
-                  else {
+                  else if(item.length == 0) {
+                    console.log(file+' not found on Trakt');
+                    cbCounter1++;
+                  } else {
                       omdb.get(item[0].movie.ids.imdb, {tomatoes: true}, function(err, movie) {
                           if(err) console.warn('Errors with imdb.', err);
                           else if(!movie) console.log(file+' not found on IMDB');
